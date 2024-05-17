@@ -38,7 +38,7 @@ h1 {
   font-family: "Syne";
   font-size: 22px;
   font-weight: 800;
-  color: #b1663c;
+  color: #84b13c;
 }
 
 h1 span {
@@ -122,7 +122,7 @@ label {
 .login label {
   margin: 2em 0 1em 0;
 }
-
+/****PERSONALISATION DU BOUTTON SE CONNECTER **/
 button {
   font-family: "Syne";
   font-weight: 700;
@@ -135,9 +135,12 @@ button {
   border-radius: 60px;
 }
 
+/**PERSONALISATION DU MESSAGE D'ERREUR **/
 .error {
   color: red;
 }
+
+/*********PERSONALISATION DU FOOTER *********/
 
 footer {
   position: fixed;
