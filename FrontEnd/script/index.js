@@ -1,28 +1,40 @@
-// VARIABLES GLOBALES
+// ==========================================================================
+// Étape 1.1 : Récupération des travaux depuis le back-end
+// ==========================================================================
 
+// stocker les éléments du DOM et la liste des travaux récupérés depuis l'API  (variable Globales )
 const gallery = document.querySelector(".gallery");
 const filtersContainer = document.querySelector(".filters");
 let listWorks = [];
 
 // GESTION DE LA PARTIE WORKS
-
+//  utilise fetch pour récupérer les travaux depuis l'API et les stocke dans listWorks sous format JSON
 async function recupererWorks() {
   const response = await fetch("http://localhost:5678/api/works");
   listWorks = await response.json();
   return listWorks;
 }
-
+// Cette fonction vide la galerie et ajoute les nouveaux éléments pour chaque travail à afficher.
 async function displayWorks(worksToShow = listWorks) {
   gallery.innerHTML = "";
   worksToShow.forEach((work) => {
+    // Créer un élément <figure>
     const figure = document.createElement("figure");
+
+    // Créer un élément <img> et définir ses attributs
     const img = document.createElement("img");
     const figcaption = document.createElement("figcaption");
     img.src = work.imageUrl;
     img.alt = work.title;
+
+    // Créer un élément <figcaption> et définir son texte
     figcaption.textContent = work.title;
+
+    // Ajouter <img> et <figcaption> à <figure>
     figure.appendChild(img);
     figure.appendChild(figcaption);
+
+    // Ajouter <figure> à la galerie
     gallery.appendChild(figure);
   });
 }
@@ -50,14 +62,22 @@ async function displayCategoriesBtn() {
   });
 }
 
-//GESTION FILTRAGE DES CATEGORIES
+// ==========================================================================================================
+// Étape 1.2 : Réalisation du filtre des travaux : Ajout des filtres pour afficher les travaux par catégorie
+// ==========================================================================================================
 
+//  Cette fonction ajoute un écouteur d'événement sur chaque bouton de catégorie. 
+//  Lorsqu'un bouton est cliqué, elle filtre les œuvres par catégorie et affiche les œuvres filtrées.
 async function initFilterButtons() {
+  // sélectionne tous les éléments <button> dans le DOM.
   const buttons = document.querySelectorAll(".button-filters");
+  // parcourir tout les éléments
   buttons.forEach((button) => {
+    // Si c'est les boutons : Objet, appartement ou hotel ...
     if (button.id === "0") {
       buttonSelected(button);
     }
+    // Ajoute un écouteur d'événement pour le clic sur chaque bouton.
     button.addEventListener("click", (event) => {
       let galleryFiltered;
       const buttonId = event.target.id;
@@ -65,6 +85,8 @@ async function initFilterButtons() {
         galleryFiltered = listWorks.filter((work) => {
           return work.category.id === parseInt(buttonId);
         });
+
+
       } else {
         // Si le bouton "Tous" est cliqué, affiche toutes les WORKS
         galleryFiltered = listWorks;
@@ -117,10 +139,13 @@ document.addEventListener("DOMContentLoaded", function () {
   updateLoginLink();
 
   function updateLoginLink() {
+    //Recuperer le Token 
     const userIsLogged = checkLoginStatus();
+    //si Token valide 
     if (userIsLogged) {
       configureLogoutLink();
-      addEditModeUI();
+      addEditModeUI(); //Pour ajouter le mode edition
+      //si Token vide 
     } else {
       loginLink.innerHTML = '<a href="login.html">login</a>';
     }
@@ -141,12 +166,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // GESTION DE LA DECONNEXION
   function handleLogout() {
     localStorage.removeItem("token");
-    window.location.href = "index.html";
+    window.location.href = "index.html"; //redirection vers la page d'accueil 
   }
 
   // MODE EDITION
   function addEditModeUI() {
+    // Ajout mode Edition au HEADER
     addEditModeToHeader();
+    // Ajout mode Edition au PORTFOLIO
     addEditModeToPortfolio();
   }
 
@@ -160,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     header.appendChild(editionModeDiv);
     header.style.margin = "110px 0";
     editionModeDiv.addEventListener("click", () => {
+      // affichage de la modale
       displayModal();
     });
   }
@@ -173,6 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
     modifierButton.style.cursor = "pointer";
     portfolioTitle.insertAdjacentElement("beforebegin", modifierButton);
     modifierButton.addEventListener("click", () => {
+      // affichage de la modale
       displayModal();
     });
   }
@@ -186,16 +215,6 @@ function createDivWithIcon(iconClass, text) {
   div.appendChild(icon);
   div.appendChild(document.createTextNode(text));
   return div;
-}
-
-// Création d'un bouton avec une icône
-function createButtonWithIcon(iconClass, text) {
-  const button = document.createElement("button");
-  const icon = document.createElement("i");
-  icon.className = iconClass;
-  button.appendChild(icon);
-  button.appendChild(document.createTextNode(text));
-  return button;
 }
 
 // Fonction d'affichage de la modale
@@ -372,19 +391,6 @@ leftArrowIcon.addEventListener("click", function () {
   modaleAdd.style.display = "none";
 });
 
-// Écouteurs d'événements pour les icônes de fermeture
-xmarkIconGallery.addEventListener("click", function () {
-  hideModal("modaleGallery");
-});
-
-xmarkIconAdd.addEventListener("click", function () {
-  hideModal("modaleAdd");
-});
-
-// Fonction pour afficher la modale d'ajout
-function showModalAdd() {
-  modaleAdd.style.display = "flex";
-}
 
 //***************************GESTION AU CLIC SUR LE BOUTON "AJOUTER UNE PHOTO"************************** */
 buttonModaleGallery.addEventListener("click", function () {

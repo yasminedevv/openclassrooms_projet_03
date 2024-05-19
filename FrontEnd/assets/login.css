@@ -78,6 +78,7 @@ main {
   flex-direction: column;
   align-self: center;
 }
+/**FORMILAIRE***/
 
 form {
   display: flex;
@@ -106,6 +107,7 @@ label {
   margin-top: 20px;
   text-align: left;
 }
+/*login*/
 
 .login {
   width: 33%;

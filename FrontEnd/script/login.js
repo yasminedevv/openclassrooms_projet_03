@@ -5,6 +5,8 @@ const form = document.querySelector("form");
 const errorDisplay = document.querySelector(".error");
 
 // fonction REGEX email validation
+//Cette fonction utilise une expression régulière 
+//pour vérifier si une chaîne email correspond au format d'une adresse e-mail valide. 
 function validateEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -13,8 +15,9 @@ function validateEmail(email) {
 // Fonction submit de la page login
 form.addEventListener("submit", (event) => {
     // Empêche le navigateur de soumettre le formulaire au clic sur le bouton
-    event.preventDefault();
-    // Récupération des informations écrites par l'utilisateur
+    event.preventDefault(); //empécher le rechargement de la page 
+    
+    // Récupération des informations écrites par l'utilisateur 
     const userEmail = emailInput.value;
     const userPassword = passwordInput.value;
     // Validation de l'adresse email et affichage du message d'erreur si invalide
@@ -45,6 +48,9 @@ form.addEventListener("submit", (event) => {
                 return response.json();
             }
         })
+
+        //Si requete de connexion réussi 
+
         .then(data => {
             localStorage.setItem("token", data.token);
             // Redirection vers la page d'accueil après connexion réussie
