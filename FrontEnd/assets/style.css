@@ -233,7 +233,12 @@ button {
 	border-radius: 60px;
 	border: 1px solid #1d6154;
 	padding: 10px 20px;
+	&.selected {
+		background-color: #1d6154;
+		color: white;
   }
+}
+  
   
   button:hover {
 	background-color: #1d6154;
