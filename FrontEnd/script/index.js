@@ -175,6 +175,8 @@ document.addEventListener("DOMContentLoaded", function () {
     addEditModeToHeader();
     // Ajout mode Edition au PORTFOLIO
     addEditModeToPortfolio();
+    //SUPRESSION FILTRE
+    hideMenuCategory();
   }
 
   // GESTION DU "MODE EDITION"
@@ -233,6 +235,13 @@ function hideModal() {
   }
 }
 
+//Fonction de masquage du filtre Category
+function hideMenuCategory() {
+  const filter = document.querySelector(".filters");
+  if (filter) {
+    filter.style.display = "none";
+  }
+}
 // **********************GESTION INTEGRATION DYNAMIQUE DE LA MODALE 1 "containerModale"********************
 
 // Création de la première modale pour la galerie

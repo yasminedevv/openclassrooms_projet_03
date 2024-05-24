@@ -369,12 +369,14 @@ button {
 	justify-content: center;
 	align-items: center;
 	flex-direction: row-reverse;
+	padding-bottom: 40px;
   }
   
   .h2-logo-modifierDiv i {
 	margin-left: 30px;
 	margin-right: 10px;
 	font-weight: 400;
+	padding-bottom: 30px;
   }
   .h2-logo-modifierDiv button {
 	all: unset;
